@@ -3,8 +3,6 @@
 *.tfstate
 *.tfstate.*
 .terraform.lock.hcl
-terraform.tfvars
-
 # Ansible backup or log files (si jamais générés)
 *.retry
 *.log
