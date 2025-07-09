@@ -11,7 +11,7 @@ resource "aws_key_pair" "deployer_key" {
 }
 
 resource "aws_security_group" "allow_web" {
-  name        = "allow_ssh_http_2"
+  name        = "allow_ssh_http_3"
   description = "Allow SSH and HTTP"
 
   ingress {
