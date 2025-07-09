@@ -4,6 +4,12 @@ provider "aws" {
   secret_key = var.secret_key
 }
 
+# Création de la clé publique SSH sur AWS
+resource "aws_key_pair" "deployer_key" {
+  key_name   = var.key_name
+  public_key = file("~/.ssh/id_rsa_github.pub")
+}
+
 resource "aws_security_group" "allow_web" {
   name        = "allow_ssh_http"
   description = "Allow SSH and HTTP"
@@ -33,7 +39,7 @@ resource "aws_security_group" "allow_web" {
 resource "aws_instance" "nginx_server" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  key_name      = var.key_name
+  key_name      = aws_key_pair.deployer_key.key_name
   security_groups = [aws_security_group.allow_web.name]
 
   tags = {
