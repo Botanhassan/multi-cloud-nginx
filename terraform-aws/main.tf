@@ -5,7 +5,8 @@ provider "aws" {
 # Création de la clé publique SSH sur AWS
 resource "aws_key_pair" "deployer_key" {
   key_name   = var.key_name
-  public_key = file("${path.module}/../.ssh/id_rsa_github.pub")
+  public_key = file("id_rsa_github.pub")
+
 
 }
 
