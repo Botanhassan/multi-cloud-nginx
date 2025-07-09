@@ -50,4 +50,4 @@ resource "aws_instance" "nginx_server" {
     command = "echo ${self.public_ip} > ../ansible/inventory.ini"
   }
 }
-# Ceci est un test pour relancer le pipeline
+# Ceci est un test pour relancer le pipeline maintenant
