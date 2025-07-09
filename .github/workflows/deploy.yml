@@ -24,10 +24,10 @@ jobs:
         run: terraform -chdir=terraform-aws init
 
       - name: Terraform Plan
-        run: terraform -chdir=terraform-aws plan
+        run: terraform -chdir=terraform-aws plan -var-file="terraform.tfvars"
 
       - name: Terraform Apply
-        run: terraform -chdir=terraform-aws apply -auto-approve
+        run: terraform -chdir=terraform-aws apply -auto-approve -var-file="terraform.tfvars"
 
       - name: Set up Ansible
         run: |
