@@ -1,0 +1,17 @@
+# Terraform directories and files
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+terraform.tfvars
+
+# Ansible backup or log files (si jamais générés)
+*.retry
+*.log
+
+# VS Code
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
