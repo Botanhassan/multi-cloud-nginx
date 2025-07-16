@@ -29,6 +29,9 @@ jobs:
       - name: Terraform Apply
         run: terraform -chdir=terraform-aws apply -auto-approve -var-file="terraform.tfvars"
 
+      - name: Terraform Output
+        run: terraform -chdir=terraform-aws output
+
       - name: Set up Ansible
         run: |
           sudo apt update
@@ -39,14 +42,15 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $(cat ansible/inventory.ini) >> ~/.ssh/known_hosts
+          SERVER_IP=$(awk '{print $1}' ansible/inventory.ini)
+          ssh-keyscan -H "$SERVER_IP" >> ~/.ssh/known_hosts
 
       - name: Run Ansible Playbook
         run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
 
       - name: Test HTTP Response
         run: |
-          SERVER_IP=$(cat ansible/inventory.ini)
+          SERVER_IP=$(awk '{print $1}' ansible/inventory.ini)
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://$SERVER_IP)
           if [ "$STATUS" -eq 200 ]; then
             echo "✅ Le serveur NGINX est accessible. Code HTTP: $STATUS"

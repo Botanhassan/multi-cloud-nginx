@@ -49,5 +49,9 @@ resource "aws_instance" "nginx_server" {
   provisioner "local-exec" {
     command = "echo ${self.public_ip} > ../ansible/inventory.ini"
   }
+  output "instance_public_ip" {
+  value = aws_instance.web.public_ip
+  }
+
 }
 # Ceci est un test pour relancer le pipeline maintenant
