@@ -1,17 +1,17 @@
 - name: Installer NGINX sur AWS
   hosts: web
-  become: true
+  become: yes
   tasks:
-    - name: Mise à jour apt
+    - name: Mettre à jour les paquets
       apt:
         update_cache: yes
 
-    - name: Installer nginx
+    - name: Installer NGINX
       apt:
         name: nginx
         state: present
 
-    - name: Démarrer et activer nginx
+    - name: Démarrer et activer NGINX
       service:
         name: nginx
         state: started
