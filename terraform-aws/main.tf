@@ -47,7 +47,10 @@ resource "aws_instance" "nginx_server" {
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > ../ansible/inventory.ini"
-  }
+  command = <<EOT
+echo "[web]" > ../ansible/inventory.ini
+echo "${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> ../ansible/inventory.ini
+EOT
 }
+
 # Ceci est un test pour relancer le pipeline maintenant
